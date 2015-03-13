@@ -6,7 +6,9 @@ export ZSH=$HOME/.oh-my-zsh
 # Optionally, if you set this to "random", it'll load a random theme each
 # time that oh-my-zsh is loaded.
 #ZSH_THEME="agnoster"
-ZSH_THEME="sporty_256"
+#ZSH_THEME="sporty_256"
+#ZSH_THEME="fino"
+ZSH_THEME="steeef"
 #ZSH_THEME="re5et"
 if [[ "$CONQUE" == 1 ]]; then
     ZSH_THEME="ys"
@@ -60,7 +62,7 @@ source $ZSH/oh-my-zsh.sh
 
 # User configuration
 
-export PATH="/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin"
+export PATH="/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin"
 # export MANPATH="/usr/local/man:$MANPATH"
 
 # You may need to manually set your language environment
@@ -95,10 +97,11 @@ set -o vi
 setopt interactivecomments
 export PIP_REQUIRE_VIRTUALENV=true
 
+DIRCOLORS=~/.dircolors/dircolors.monokai
+
 if [[ "$OSTYPE" == "darwin"* ]]; then
     # Mac stuff
-	alias ls='gls -Fc --color=tty'
-	eval `gdircolors -b ~/git/solarized/dircolors-solarized/dircolors.256dark`
+    eval `gdircolors -b $DIRCOLORS`
 	export DOCKER_TLS_VERIFY=1
 	export DOCKER_HOST=tcp://192.168.0.10:2376
 	export DOCKER_CERT_PATH=/Users/cummis/.boot2docker/certs/boot2docker-vm
@@ -111,14 +114,19 @@ if [[ "$OSTYPE" == "darwin"* ]]; then
 	alias gvim='/Applications/MacVim.app/Contents/MacOS/Vim -g'
     alias vim='/Applications/MacVim.app/Contents/MacOS/Vim'
     alias vi='vim'
+    #eval "$(pyenv virtualenv-init -)"
+    #if which pyenv-virtualenv-init > /dev/null; then eval "$(pyenv virtualenv-init -)"; fi
 
-    . `brew --prefix`/etc/profile.d/z.sh
+    #. `brew --prefix`/etc/profile.d/z.sh
+	alias ls='gls -Fc --color=tty'
 else
     # Linux stuff
+	eval `dircolors -b $DIRCOLORS`
 	alias ls='ls -Fc --color=tty'
-	eval `dircolors -b ~/git/solarized/dircolors-solarized/dircolors.256dark`
 fi
 alias h='history'
 export PATH=$PATH:/opt/emc/SYMCLI/bin
 bindkey '^R' history-incremental-search-backward
 source ~/.oh-my-zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+
+export PATH="$PATH:$HOME/.rvm/bin" # Add RVM to PATH for scripting
